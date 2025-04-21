@@ -4,14 +4,7 @@ name: immich-dokploy
 
 services:
   immich-server:
-    container_name: immich_server
-    image: immich-server:latest
-    # extends:
-    #   file: hwaccel.transcoding.yml
-    #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
-    build:
-      context: .
-      dockerfile: server/Dockerfile
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
 
     volumes:
       - immich-library:/usr/src/app/upload
@@ -46,16 +39,7 @@ services:
       retries: 3
 
   immich-machine-learning:
-    container_name: immich_machine_learning
-    image: immich-machine-learning:latest
-    # extends:
-    #   file: hwaccel.ml.yml
-    #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference
-    build:
-      context: ./machine-learning
-      dockerfile: Dockerfile
-      args:
-        - DEVICE=cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
 
     volumes:
       - immich-model-cache:/cache

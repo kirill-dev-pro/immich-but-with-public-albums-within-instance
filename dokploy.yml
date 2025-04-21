@@ -10,7 +10,7 @@ services:
     #   file: hwaccel.transcoding.yml
     #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
     build:
-      context: ../
+      context: .
       dockerfile: server/Dockerfile
 
     volumes:
@@ -52,7 +52,7 @@ services:
     #   file: hwaccel.ml.yml
     #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference
     build:
-      context: ../machine-learning
+      context: ./machine-learning
       dockerfile: Dockerfile
       args:
         - DEVICE=cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference
